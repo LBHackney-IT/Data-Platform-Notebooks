@@ -8,7 +8,10 @@ run-notebook-v2: save-credentials
 	docker compose up notebook-v2
 
 run-notebook-v3: save-credentials
-	docker compose run --service-ports notebook-v3 
+	docker compose run --service-ports notebook-v3
+
+run-glue-4-jupyter: save-credentials
+	docker compose up -d glue-4-jupyter
 
 remove-images:
 	-docker kill glue_jupyter
@@ -20,4 +23,4 @@ thrift-server:
 spark-sql:
 	docker compose exec notebook /home/spark-2.4.3-bin-spark-2.4.3-bin-hadoop2.8/bin/beeline -u jdbc:hive2://localhost:10000/default -n root -p ""
 
-.PHONY: run-notebook run-notebook-v3 run-notebook-v2
+.PHONY: run-notebook run-notebook-v3 run-notebook-v2 run-glue-4-jupyter
