@@ -44,3 +44,19 @@ services:
     volumes:
       - ./aws-config:/root/.aws:rw
       - ./notebooks:/home/glue_user/workspace/jupyter_workspace
+  glue-4-jupyter:
+    container_name: glue_4_jupyter
+    command: /home/glue_user/jupyter/jupyter_start.sh
+    environment:
+      - DISABLE_SSL=true
+    image: amazon/aws-glue-libs:glue_libs_4.0.0_image_01
+    ports:
+      - "4040:4040"
+      - "8888:8888"
+      - "18080:18080"
+      - "8998:8998"
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    env_file: .env
+    volumes:
+      - ./notebooks/:/home/glue_user/workspace/jupyter_workspace/
